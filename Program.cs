@@ -11,17 +11,15 @@ class Program
         var switchMappings = new Dictionary<string, string>
         {
             { "-p", "password" },
-            { "--password", "password" },
             { "-s", "salt" },
-            { "--salt", "salt" },
         };
 
         var configuration = new ConfigurationBuilder()
             .AddCommandLine(args, switchMappings)
             .Build();
 
-        string password = configuration["password"];
-        string salt = configuration["salt"];
+        string password = configuration["Password"];
+        string salt = configuration["Salt"];
         bool use3Des = args.Contains("-d");
 
         if (string.IsNullOrEmpty(password) || string.IsNullOrEmpty(salt))
