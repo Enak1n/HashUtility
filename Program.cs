@@ -11,7 +11,9 @@ class Program
         var switchMappings = new Dictionary<string, string>
         {
             { "-p", "password" },
+            { "--password", "password" },
             { "-s", "salt" },
+            { "--salt", "salt" },
         };
 
         var configuration = new ConfigurationBuilder()
