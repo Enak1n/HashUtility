@@ -1,20 +1,25 @@
 ﻿using HashUtility;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 class Program
 {
     static void Main(string[] args)
     {
-        var configuration = new ConfigurationBuilder()
-                   .AddCommandLine(args, new Dictionary<string, string>
-                   {
-                       { "-p", "p" },
-                       { "-s", "s" }})
-                   .Build();
+        var switchMappings = new Dictionary<string, string>
+        {
+            { "-p", "password" },
+            { "-s", "salt" },
+        };
 
-        string password = configuration["p"];
-        string salt = configuration["s"];
+        var configuration = new ConfigurationBuilder()
+            .AddCommandLine(args, switchMappings)
+            .Build();
+
+        string password = configuration["password"];
+        string salt = configuration["salt"];
         bool use3Des = args.Contains("-d");
 
         if (string.IsNullOrEmpty(password) || string.IsNullOrEmpty(salt))
