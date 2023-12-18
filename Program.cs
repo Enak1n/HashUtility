@@ -11,7 +11,9 @@ class Program
         var switchMappings = new Dictionary<string, string>
         {
             { "-p", "password" },
+            { "--password", "password" },
             { "-s", "salt" },
+            { "--salt", "salt" },
         };
 
         var configuration = new ConfigurationBuilder()
@@ -21,10 +23,19 @@ class Program
         string password = configuration["Password"];
         string salt = configuration["Salt"];
         bool use3Des = args.Contains("-d");
+        bool isHelp = args.Contains("-h") || args.Contains("--help");
+
+        if (isHelp)
+        {
+            Console.WriteLine("-p - пароль для хеширование");
+            Console.WriteLine("-s - произвольный ключ хеширования");
+            Console.WriteLine("-d - флаг для использования 3Des");
+            return;
+        }
 
         if (string.IsNullOrEmpty(password) || string.IsNullOrEmpty(salt))
         {
-            Console.WriteLine("Проверьте правильность введения команды!");
+            Console.WriteLine("Проверьте правильность введения команды! Введите --help или -h для получения справки! ");
             return;
         }
 
